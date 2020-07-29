@@ -1,0 +1,58 @@
+#两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
+
+#给出两个整数 x 和 y，计算它们之间的汉明距离。
+
+#注意：
+#0 ≤ x, y < 231.
+
+#示例:
+
+#输入: x = 1, y = 4
+
+#输出: 2
+
+#解释:
+#1   (0 0 0 1)
+#4   (0 1 0 0)
+#上面的箭头指出了对应二进制位不同的位置。
+
+#来源：力扣（LeetCode）
+#链接：https://leetcode-cn.com/problems/hamming-distance
+#著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+class Solution(object):
+    def hammingDistance(self, x, y):
+        """
+        :type x: int
+        :type y: int
+        :rtype: int
+        """
+        num_x = []
+        num_y = []
+        while x != 0:
+            num_x.insert(0,x % 2)
+            x = x // 2
+        while y != 0:
+            num_y.insert(0,y % 2)
+            y = y // 2
+
+        if len(num_x) > len(num_y):
+            for i in range(len(num_x) - len(num_y)):
+                num_y.insert(0, 0)
+        if len(num_y) > len(num_x):
+            for i in range(len(num_y) - len(num_x)):
+                num_x.insert(0, 0)
+
+        print(num_x)
+        print(num_y)
+
+        dis = 0
+        index = 0
+        while index < len(num_x):
+            if num_x[index] != num_y[index]:
+                dis += 1
+            index += 1
+        return dis
+
+a = Solution()
+print(a.hammingDistance(1,4))
